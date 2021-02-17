@@ -1,8 +1,9 @@
+import { EpisodeActionTypes } from './action.types';
 import { Episode } from '../services/BreakingBadApiService.types';
 
 
 interface EpisodeAction {
-  type: string;
+  type: EpisodeActionTypes;
   payload?: Episode[];
 }
 
@@ -21,16 +22,17 @@ const episodeReducer = (
   action: EpisodeAction,
   ): EpisodesState => {
   switch (action.type) {
-    case 'success':
+    case EpisodeActionTypes.EPISODE_LOADING_SUCCESS:
       return {
         status: 'success',
         data: action.payload!,
       }
-    case 'error':
+    case EpisodeActionTypes.EPISODE_LOADING_ERROR:
       return { status: 'error', data: [] };
     default:
       return state;
   }
 }
 
+export type { EpisodeAction };
 export default episodeReducer;

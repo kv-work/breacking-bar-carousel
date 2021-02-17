@@ -1,7 +1,8 @@
+import { CharacterActionTypes } from './action.types';
 import { Character } from '../services/BreakingBadApiService.types';
 
 interface CharacterAction {
-  type: string;
+  type: CharacterActionTypes;
   payload?: Character[];
 }
 
@@ -20,12 +21,12 @@ const characterReducer = (
   action: CharacterAction,
   ): CharactersState => {
   switch (action.type) {
-    case 'success':
+    case CharacterActionTypes.CHARACTER_LOADING_SUCCESS:
       return {
         status: 'success',
         data: action.payload!,
       }
-    case 'error':
+    case CharacterActionTypes.CHARACTER_LOADING_ERROR:
       return { status: 'error', data: [] };
     default:
       return state;

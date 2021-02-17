@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CharacterAction } from '../../redux/characterReducer';
-import { CharacterActionTypes } from '../../redux/action.types';
+import { EpisodeAction } from '../../redux/episodeReducer';
+import { EpisodeActionTypes } from '../../redux/action.types';
 import { State } from '../../redux/reducer';
 import BreakingBadApiService from '../../services/BreakingBadApiService';
-import { Character } from '../../services/BreakingBadApiService.types';
+import { Episode } from '../../services/BreakingBadApiService.types';
 
-import CharacterCarouselProps from './CharacterCarousel.types';
-import CharacterCard from '../CharacterCard/CharacterCard';
+import EpisodeCarouselProps from './EpisodeCarousel.types';
+import EpisodeCard from '../EpisodeCard/EpisodeCard';
 
-import styles from './CharacterCarousel.module.scss';
+import styles from './EpisodeCarousel.module.scss';
 
-const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4 }) => {
-  const charactersData = useSelector((state: State) => state.characters);
-  const { data } = charactersData;
+const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 4 }) => {
+  const episodeData = useSelector((state: State) => state.episodes);
+  const { data } = episodeData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    BreakingBadApiService.getCharacters()
-    .then((data: Character[]) => {
-      const action: CharacterAction = {
-        type: CharacterActionTypes.CHARACTER_LOADING_SUCCESS,
+    BreakingBadApiService.getEpisodes()
+    .then((data: Episode[]) => {
+      const action: EpisodeAction = {
+        type: EpisodeActionTypes.EPISODE_LOADING_SUCCESS,
         payload: data,
       }
 
@@ -30,11 +30,11 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
     })
     .catch(err => {
       console.log(err)
-      dispatch({ type: CharacterActionTypes.CHARACTER_LOADING_ERROR })
+      dispatch({ type: EpisodeActionTypes.EPISODE_LOADING_ERROR })
     });
   }, []);
 
-  const selectActualCards = (cards: Character[]): Character[] => {
+  const selectActualCards = (cards: Episode[]): Episode[] => {
     let firstActualItem = numberOfCards * (currentPage - 1);
     let lastActualItem = firstActualItem + numberOfCards;
 
@@ -66,8 +66,8 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
   return (
     <div className={styles.charactersCarousel}>
       <header className={styles.carouselHeader}>
-        <h2>Characters of The Breaking Bad</h2>
-        <div>Total {data.length} characters.</div>
+        <h2>Episodes of The Breaking Bad</h2>
+        <div>Total {data.length} episodes.</div>
       </header>
       <div className={styles.carousel}>
         <button className={styles.btnPrev} onClick={handlePrevClick} />
@@ -75,9 +75,9 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
           {
             actualCards.length !== 0 ?
             actualCards.map(character => {
-              return <CharacterCard key={character.char_id} data={character} />
+              return <EpisodeCard key={character.air_date} data={character} />
             }) :
-            <div className="errorText">Characters not found!</div>
+            <div className="errorText">Episodes not found!</div>
           }
         </ul>
         <button className={styles.btnNext} onClick={handleNextClick} />
@@ -86,4 +86,4 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
   )
 };
 
-export default CharacterCarousel;
+export default EpisodeCarousel;
