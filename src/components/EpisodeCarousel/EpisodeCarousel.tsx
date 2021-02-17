@@ -12,7 +12,7 @@ import EpisodeCard from '../EpisodeCard/EpisodeCard';
 
 import styles from './EpisodeCarousel.module.scss';
 
-const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 4 }) => {
+const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3 }) => {
   const episodeData = useSelector((state: State) => state.episodes);
   const { data } = episodeData;
   const dispatch = useDispatch();
@@ -63,15 +63,19 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 4 }) 
     });
   }
 
+  const carouselStyles = {
+    gridTemplateColumns: `repeat(${numberOfCards}, 1fr)`,
+  }
+
   return (
     <div className={styles.charactersCarousel}>
-      <header className={styles.carouselHeader}>
+      <header className={styles.header}>
         <h2>Episodes of The Breaking Bad</h2>
         <div>Total {data.length} episodes.</div>
       </header>
       <div className={styles.carousel}>
         <button className={styles.btnPrev} onClick={handlePrevClick} />
-        <ul className={styles.carouselCards}>
+        <ul className={styles.carouselCards} style={carouselStyles} >
           {
             actualCards.length !== 0 ?
             actualCards.map(character => {

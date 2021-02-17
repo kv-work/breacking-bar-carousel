@@ -1,8 +1,8 @@
 .charactersCarousel {
-  // background-color: blue;
+  margin-top: 40px;
 }
 
-.carouselHeader {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,10 +20,9 @@
   padding: 0;
   width: 100%;
   height: auto;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  column-gap: 20px;
   align-items: center;
-  flex-wrap: nowrap;
 }
 
 .btnPrev,

@@ -9,9 +9,7 @@ const CharacterCard: React.FC<EpisodeCardProps> = (props) => {
   return (
     <li className={styles.episodeCard} >
       <div className={styles.cardImage}></div>
-      <div className={styles.status}>{data.season}</div>
-      <div className={styles.nickname}>{data.title}</div>
-      <div className={styles.name}>{data.episode}</div>      
+      <div className={styles.title}>s{data.season}e{data.episode}: {data.title}</div>
     </li>
   );
 };

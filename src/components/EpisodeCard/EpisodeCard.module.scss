@@ -1,21 +1,26 @@
 .episodeCard {
+  width: 100%;
   list-style: none;
-  height: 250px;
-  width: 176px;
   background: center;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 8px;
   position: relative;
+  border: 1px solid;
+  padding-bottom: 5px;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 0.625rem green;
+  }
 }
 
 .cardImage {
-  height: 250px;
-  width: 176px;
+  height: 140px;
   background: center url('../../asserts/episode-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 8px;
   position: relative;
 }
 
@@ -28,7 +33,7 @@
   transform: rotate(-45deg);
 }
 
-.name {
+.title {
   width: 100%;
   text-align: center;
 }
