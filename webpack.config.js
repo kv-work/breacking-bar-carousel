@@ -74,6 +74,18 @@ module.exports = (env = {}) => {
             },
           ],
         },
+        {
+          test: /\.(png|gif|jpeg|jpg|svg)$/,
+          exclude: /fonts/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              publicPath: './img',
+              outputPath: 'img',
+              name: '[name].[ext]',
+            },
+          }],
+        },
       ],
     },
 

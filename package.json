@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kv-work/breaking-bar-carousel"
+    "url": "git+https://github.com/kv-work/breaking-bad-carousel"
   },
   "keywords": [
     "React",
@@ -33,6 +33,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/redux": "^3.6.0",
     "css-loader": "^5.0.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.1.0",
     "mini-css-extract-plugin": "^1.3.7",
     "node-sass": "^5.0.0",
