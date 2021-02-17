@@ -55,7 +55,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
 
   const handleNextClick = () => {
     setCurrentPage((prev) => {
-      const maxPageNumber = Math.floor(data.length / numberOfCards);
+      const maxPageNumber = Math.floor(data.length / numberOfCards + 1);
       if (currentPage < maxPageNumber) return prev + 1;
       return prev;
     });
