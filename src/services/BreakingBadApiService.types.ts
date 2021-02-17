@@ -20,8 +20,8 @@ type Episode = {
 }
 
 interface BreakingBadApiServiceType {
-  getCharacters(limit?: number, offset?: number): Promise<Character>;
-  getEpisodes(number?: number): Promise<Episode>;
+  getCharacters(limit?: number, offset?: number): Promise<Character[]>;
+  getEpisodes(number?: number): Promise<Episode[]>;
 }
 
 export type {

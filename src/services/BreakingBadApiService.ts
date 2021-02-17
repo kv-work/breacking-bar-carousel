@@ -13,7 +13,7 @@ class BreakingBadApiService implements BreakingBadApiServiceType {
     this.bindMethods();
   }
 
-  async getCharacters(limit?: number, offset?: number): Promise<Character> {
+  async getCharacters(limit?: number, offset?: number): Promise<Character[]> {
     const queryLimit = limit ? `limit=${limit}` : '';
     const queryOffsset = offset ? `offset=${offset}` : '';
     let query = '';
@@ -23,7 +23,7 @@ class BreakingBadApiService implements BreakingBadApiServiceType {
     return await res.json()
   }
 
-  async getEpisodes(number?: number): Promise<Episode> {
+  async getEpisodes(number?: number): Promise<Episode[]> {
     const query = number ? `/${number}` : '';
 
     const res = await fetch(`${this.apiBase}episodes${query}`)
