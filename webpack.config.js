@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -13,7 +14,9 @@ module.exports = (env = {}) => {
       {
         loader: 'css-loader',
         options: {
-          modules: true,
+          modules: {
+            localIdentName: "[local]--[hash:base64:5]",
+          },
         },
       },
     ];
