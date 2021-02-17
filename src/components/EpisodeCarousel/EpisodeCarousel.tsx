@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 
 import { EpisodeAction } from '../../redux/episodeReducer';
 import { EpisodeActionTypes } from '../../redux/action.types';
@@ -12,11 +13,14 @@ import EpisodeCard from '../EpisodeCard/EpisodeCard';
 
 import styles from './EpisodeCarousel.module.scss';
 
-const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3 }) => {
+const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, renderCards }) => {
   const episodeData = useSelector((state: State) => state.episodes);
   const { data } = episodeData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const isMobile = useMediaQuery({
+    query: '(max-width: 1100px)'
+  })
 
   useEffect(() => {
     BreakingBadApiService.getEpisodes()
@@ -35,11 +39,16 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3 }) 
   }, []);
 
   const selectActualCards = (cards: Episode[]): Episode[] => {
+    if (isMobile) {
+      return renderCards ? cards?.slice(0, renderCards) : cards;
+    }
+
     let firstActualItem = numberOfCards * (currentPage - 1);
     let lastActualItem = firstActualItem + numberOfCards;
 
-    if (lastActualItem >= cards.length) {
-      lastActualItem = cards.length;
+    const maxNumberOfCards = renderCards ? renderCards : cards.length;
+    if (lastActualItem >= maxNumberOfCards) {
+      lastActualItem = maxNumberOfCards;
       firstActualItem = lastActualItem - numberOfCards;
     }
     const actualCards = cards?.slice(firstActualItem, lastActualItem);
@@ -63,8 +72,23 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3 }) 
     });
   }
 
+  const handleCarouselTouchStart: React.TouchEventHandler = (e) => {
+    const touch = e.touches[0];
+    const swipe = { x: touch.clientX };
+  }
+
   const carouselStyles = {
     gridTemplateColumns: `repeat(${numberOfCards}, 1fr)`,
+  }
+
+  const desktopCards = () => {
+    const renderElements = actualCards.length !== 0 ?
+    actualCards.map(character => {
+      return <EpisodeCard key={character.air_date} data={character} />
+    }) :
+    <div className="errorText">Episodes not found!</div>;
+
+    return renderElements;
   }
 
   return (
@@ -75,14 +99,12 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3 }) 
       </header>
       <div className={styles.carousel}>
         <button className={styles.btnPrev} onClick={handlePrevClick} />
-        <ul className={styles.carouselCards} style={carouselStyles} >
-          {
-            actualCards.length !== 0 ?
-            actualCards.map(character => {
-              return <EpisodeCard key={character.air_date} data={character} />
-            }) :
-            <div className="errorText">Episodes not found!</div>
-          }
+        <ul
+          className={styles.carouselCards}
+          style={isMobile ? {} : carouselStyles}
+          onTouchStart={handleCarouselTouchStart}
+        >
+          {desktopCards()}
         </ul>
         <button className={styles.btnNext} onClick={handleNextClick} />
       </div>
