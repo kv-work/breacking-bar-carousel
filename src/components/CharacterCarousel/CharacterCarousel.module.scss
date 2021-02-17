@@ -7,7 +7,7 @@
 .carousel {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  column-gap: 10px;
+  column-gap: 0.625rem;
   align-items: center;
 
   @media screen and (max-width: 1100px) {

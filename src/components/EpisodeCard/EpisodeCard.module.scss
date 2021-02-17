@@ -1,14 +1,14 @@
 .episodeCard {
   width: 100%;
-  min-width: 280px;
+  min-width: 17.5rem;
   list-style: none;
   background: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   position: relative;
-  border: 1px solid;
-  padding-bottom: 5px;
+  border: 0.0625rem solid;
+  padding-bottom: 0.3125rem;
   white-space: nowrap;
 
   &:hover {
@@ -18,7 +18,7 @@
 }
 
 .cardImage {
-  height: 140px;
+  height: 8.75rem;
   background: center url('../../asserts/episode-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
