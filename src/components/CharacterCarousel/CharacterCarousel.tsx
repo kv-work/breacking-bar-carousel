@@ -48,7 +48,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
         <div>Total {data.length} characters.</div>
       </header>
       <div className={styles.carousel}>
-        <button className={styles.btnPrev}>Prev</button>
+        <button className={styles.btnPrev} />
         <ul className={styles.carouselCards}>
           {
             actualCards.length !== 0 ?
@@ -58,7 +58,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
             <div className="errorText">Characters not found!</div>
           }
         </ul>
-        <button className={styles.btnNext}>Next</button>
+        <button className={styles.btnNext} />
       </div>
     </div>
   )
