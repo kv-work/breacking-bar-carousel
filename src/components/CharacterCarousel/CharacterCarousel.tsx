@@ -33,13 +33,33 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
   }, []);
 
   const selectActualCards = (cards: Character[]): Character[] => {
-    const firstActualItem = numberOfCards * (currentPage - 1);
-    const lastActualItem = firstActualItem + numberOfCards;
+    let firstActualItem = numberOfCards * (currentPage - 1);
+    let lastActualItem = firstActualItem + numberOfCards;
+
+    if (lastActualItem >= cards.length) {
+      lastActualItem = cards.length;
+      firstActualItem = lastActualItem - numberOfCards;
+    }
     const actualCards = cards?.slice(firstActualItem, lastActualItem);
     return actualCards;
   };
 
   const actualCards = selectActualCards(data);
+
+  const handlePrevClick = () => {
+    setCurrentPage((prev) => {
+      if (currentPage > 1) return prev - 1;
+      return prev;
+    });
+  }
+
+  const handleNextClick = () => {
+    setCurrentPage((prev) => {
+      const maxPageNumber = Math.floor(data.length / numberOfCards);
+      if (currentPage < maxPageNumber) return prev + 1;
+      return prev;
+    });
+  }
 
   return (
     <div className={styles.charactersCarousel}>
@@ -48,7 +68,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
         <div>Total {data.length} characters.</div>
       </header>
       <div className={styles.carousel}>
-        <button className={styles.btnPrev} />
+        <button className={styles.btnPrev} onClick={handlePrevClick} />
         <ul className={styles.carouselCards}>
           {
             actualCards.length !== 0 ?
@@ -58,7 +78,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
             <div className="errorText">Characters not found!</div>
           }
         </ul>
-        <button className={styles.btnNext} />
+        <button className={styles.btnNext} onClick={handleNextClick} />
       </div>
     </div>
   )
