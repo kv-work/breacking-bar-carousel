@@ -1,4 +1,4 @@
-import { Character } from '../services/BreackingBadApiService';
+import { Character } from '../services/BreakingBadApiService.types';
 
 interface CharacterAction {
   type: string;

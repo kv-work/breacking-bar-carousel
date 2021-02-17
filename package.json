@@ -1,18 +1,22 @@
 {
-  "name": "breacking-bad-carousel",
+  "name": "breaking-bad-carousel",
   "version": "1.0.0",
-  "description": "carousel with characters and episodes of The Breacking Bad serial",
+  "description": "carousel with characters and episodes of The Breaking Bad serial",
   "main": "index.tsx",
   "scripts": {
     "build:prod": "webpack --env production",
     "build:dev": "webpack",
     "start": "webpack serve"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kv-work/breaking-bar-carousel"
+  },
   "keywords": [
     "React",
     "Redux",
     "TS",
-    "BreackingBadAPI"
+    "BreakingBadAPI"
   ],
   "author": "Vyacheslav Komarov",
   "license": "ISC",

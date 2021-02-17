@@ -1,11 +1,5 @@
-type Episode = {
-  episode_id: number;
-  title: string;
-  season: number;
-  episode: number;
-  air_date: string;
-  characters: string[];
-}
+import { Episode } from '../services/BreakingBadApiService.types';
+
 
 interface EpisodeAction {
   type: string;
