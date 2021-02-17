@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 
 import { CharacterAction } from '../../redux/characterReducer';
 import { CharacterActionTypes } from '../../redux/action.types';
@@ -17,6 +18,9 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
   const { data } = charactersData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const isMobile = useMediaQuery({
+    query: '(max-width: 1100px)'
+  })
 
   useEffect(() => {
     BreakingBadApiService.getCharacters()
@@ -35,6 +39,9 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
   }, []);
 
   const selectActualCards = (cards: Character[]): Character[] => {
+    if (isMobile) {
+      return cards;
+    }
     let firstActualItem = numberOfCards * (currentPage - 1);
     let lastActualItem = firstActualItem + numberOfCards;
 

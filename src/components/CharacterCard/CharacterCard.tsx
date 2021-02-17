@@ -15,7 +15,7 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
       <div className={styles.cardImage} style={bgStyle}></div>
       <div className={styles.status}>{data.status}</div>
       <div className={styles.nickname}>{data.nickname}</div>
-      <div className={styles.name}>{data.name}</div>      
+      <div className={styles.name}>{data.name}</div>
     </li>
   );
 };

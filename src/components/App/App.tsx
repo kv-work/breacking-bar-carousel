@@ -8,7 +8,7 @@ const App: React.FC = () => {
   return (
     <div className={styles.app}>
       <h1>The Breaking Bad</h1>
-      {/* <CharacterCarousel /> */}
+      <CharacterCarousel />
       <EpisodeCarousel renderCards={12} />
     </div>
   );
