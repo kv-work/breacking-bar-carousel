@@ -16,9 +16,6 @@
 
   @media screen and (max-width: 1100px) {
     display: flex;
-    // flex-wrap: nowrap;
-    // white-space: nowrap;
-    // overflow: hidden;
   }
 }
 
@@ -35,7 +32,7 @@
     display: flex;
     flex-wrap: nowrap;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: scroll;
   }
 }
 

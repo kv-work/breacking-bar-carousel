@@ -18,6 +18,9 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
   const { data } = episodeData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [startPosition, setStartPosition] = useState<number>();
+  const [newPosition, setNewPosition] = useState<number>();
+  const [carouselPosition, setCaruselPosition] = useState(0);
   const isMobile = useMediaQuery({
     query: '(max-width: 1100px)'
   })
@@ -72,11 +75,6 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
     });
   }
 
-  const handleCarouselTouchStart: React.TouchEventHandler = (e) => {
-    const touch = e.touches[0];
-    const swipe = { x: touch.clientX };
-  }
-
   const carouselStyles = {
     gridTemplateColumns: `repeat(${numberOfCards}, 1fr)`,
   }
@@ -102,7 +100,6 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
         <ul
           className={styles.carouselCards}
           style={isMobile ? {} : carouselStyles}
-          onTouchStart={handleCarouselTouchStart}
         >
           {desktopCards()}
         </ul>
