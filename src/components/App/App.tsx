@@ -8,26 +8,6 @@ import BreakingBadApiService from '../../services/BreakingBadApiService';
 import { CharacterAction } from '../../redux/characterReducer';
 
 const App: React.FC = () => {
-  const store = useSelector((store: State) => store);
-  const dispatch = useDispatch();
-  const { characters, episodes} = store;
-
-  useEffect(() => {
-    BreakingBadApiService.getCharacters()
-    .then((data: Character[]) => {
-      const action: CharacterAction = {
-        type: 'success',
-        payload: data,
-      }
-
-      dispatch(action);
-    })
-    .catch(err => {
-      console.log(err)
-      dispatch({ type: 'error' })
-    });
-  }, []);
-  
   return (
     <div className="app">
       <h1>The Breacking Bad</h1>

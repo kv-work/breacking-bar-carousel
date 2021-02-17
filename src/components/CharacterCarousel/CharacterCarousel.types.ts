@@ -1,7 +1,7 @@
 import { Character } from '../../services/BreakingBadApiService.types';
 
-// interface CharacterCarouselProps {
-//   data: Character[];
-// }
+interface CharacterCarouselProps {
+  numberOfCards?: number;
+}
 
-// export default CharacterCarouselProps;
+export default CharacterCarouselProps;
