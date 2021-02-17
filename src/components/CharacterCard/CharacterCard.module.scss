@@ -1,0 +1,42 @@
+.characterCard {
+  list-style: none;
+  height: 250px;
+  width: 176px;
+  background: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  position: relative;
+}
+
+.cardImage {
+  height: 250px;
+  width: 176px;
+  background: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  position: relative;
+}
+
+.status {
+  color: red;
+  position: absolute;
+  bottom: 50%;
+  left: 20%;
+  font-size: 1.5rem;
+  transform: rotate(-45deg);
+}
+
+.name {
+  width: 100%;
+  text-align: center;
+}
+
+.nickname {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  width: 100%;
+  text-align: center;
+}

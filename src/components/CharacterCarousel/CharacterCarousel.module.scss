@@ -1,3 +1,25 @@
 .charactersCarousel {
-  background-color: blue;
+  // background-color: blue;
+}
+
+.carouselHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+
+.carouselCards {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
 }

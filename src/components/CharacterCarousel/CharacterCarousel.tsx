@@ -43,18 +43,22 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
 
   return (
     <div className={styles.charactersCarousel}>
-      <header className="carouselHeader">
+      <header className={styles.carouselHeader}>
         <h2>Characters of The Breaking Bad</h2>
         <div>Total {data.length} characters.</div>
       </header>
-      <div className="carousel">
-        {
-          actualCards.length !== 0 ?
-          actualCards.map(character => {
-            return <CharacterCard key={character.char_id} data={character} />
-          }) :
-          <div className="errorText">Characters not found!</div>
-        }
+      <div className={styles.carousel}>
+        <button className={styles.btnPrev}>Prev</button>
+        <ul className={styles.carouselCards}>
+          {
+            actualCards.length !== 0 ?
+            actualCards.map(character => {
+              return <CharacterCard key={character.char_id} data={character} />
+            }) :
+            <div className="errorText">Characters not found!</div>
+          }
+        </ul>
+        <button className={styles.btnNext}>Next</button>
       </div>
     </div>
   )
