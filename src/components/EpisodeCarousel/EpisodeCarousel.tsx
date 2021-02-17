@@ -15,7 +15,7 @@ import styles from './EpisodeCarousel.module.scss';
 
 const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, renderCards }) => {
   const episodeData = useSelector((state: State) => state.episodes);
-  const { data } = episodeData;
+  const { data, status } = episodeData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const isMobile = useMediaQuery({
@@ -76,14 +76,25 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
     gridTemplateColumns: `repeat(${numberOfCards}, 1fr)`,
   }
 
-  const desktopCards = () => {
-    const renderElements = actualCards.length !== 0 ?
-    actualCards.map(character => {
-      return <EpisodeCard key={character.air_date} data={character} />
-    }) :
-    <div className="errorText">Episodes not found!</div>;
-
-    return renderElements;
+  const renderCarousel = (status: string, data: Episode[]) => {
+    switch (status) {
+      case 'success':
+        return (
+          <>
+            <button className={styles.btnPrev} onClick={handlePrevClick} />
+            <ul
+              className={styles.carouselCards}
+              style={isMobile ? {} : carouselStyles}
+            >
+              {data.map(character => <EpisodeCard key={character.air_date} data={character} />)}
+            </ul>
+            <button className={styles.btnNext} onClick={handleNextClick} />
+          </>
+        );
+      case 'error':
+        return  <div className="errorText">Episodes not found!</div>;
+      default: return <div>Loading data...</div>
+    }
   }
 
   return (
@@ -93,14 +104,7 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
         <div>Total {data.length} episodes.</div>
       </header>
       <div className={styles.carousel}>
-        <button className={styles.btnPrev} onClick={handlePrevClick} />
-        <ul
-          className={styles.carouselCards}
-          style={isMobile ? {} : carouselStyles}
-        >
-          {desktopCards()}
-        </ul>
-        <button className={styles.btnNext} onClick={handleNextClick} />
+        { renderCarousel(status, actualCards) }
       </div>
     </div>
   )
