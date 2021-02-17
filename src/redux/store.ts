@@ -1,8 +1,6 @@
-import {
-  createStore, compose, Store,
-} from 'redux';
+import { createStore } from 'redux';
 
-import rootReducer, { State } from './reducer';
+import rootReducer from './reducer';
 
 const store = createStore(rootReducer);
 
