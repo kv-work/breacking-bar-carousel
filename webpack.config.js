@@ -10,7 +10,12 @@ module.exports = (env = {}) => {
   function getStyleLoaders() {
     return [
       isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-      'css-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          modules: true,
+        },
+      },
     ];
   }
 
