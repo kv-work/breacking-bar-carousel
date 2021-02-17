@@ -10,7 +10,7 @@ import { CharacterAction } from '../../redux/characterReducer';
 const App: React.FC = () => {
   return (
     <div className="app">
-      <h1>The Breacking Bad</h1>
+      <h1>The Breaking Bad</h1>
       <CharacterCarousel />
     </div>
   );
