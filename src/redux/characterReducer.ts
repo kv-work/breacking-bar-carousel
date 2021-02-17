@@ -1,14 +1,4 @@
-type Character = {
-  char_id: number;
-  name: string;
-  birthday: string;
-  occupation: string[];
-  img: string;
-  status: string;
-  appearance: number[];
-  nickname: string;
-  portrayed: string;
-}
+import { Character } from '../services/BreackingBadApiService';
 
 interface CharacterAction {
   type: string;
@@ -42,4 +32,5 @@ const characterReducer = (
   }
 }
 
+export type { CharacterAction };
 export default characterReducer;
