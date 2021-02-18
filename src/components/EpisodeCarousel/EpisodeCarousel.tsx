@@ -18,6 +18,7 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
   const { data, status } = episodeData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [swipe, setSwipe] = useState(0);
   const isMobile = useMediaQuery({
     query: '(max-width: 1100px)'
   })
@@ -72,6 +73,34 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
     });
   }
 
+  const handleCarouselMouseDown = (e: React.MouseEvent) => {
+    const elem = (e.currentTarget as Element);
+    const bounds = elem.getBoundingClientRect()
+    const startPosition = swipe;
+
+    const clickStartCoord = e.clientX - bounds.x;
+
+    const handleDocumentMouseMove = (event: MouseEvent) => {
+      const clickMoveCoord = event.clientX - bounds.x;
+      const swipe = startPosition + clickMoveCoord - clickStartCoord;
+
+      setSwipe(swipe);
+    }
+
+    document.addEventListener('mousemove', handleDocumentMouseMove);
+
+
+    document.onmouseup = () => {
+      document.removeEventListener('mousemove', handleDocumentMouseMove);
+      document.onmouseup = null;
+    }
+  };
+
+  const mobileStyles = {
+    transform: `translateX(${swipe}px)`,
+  }
+
+
   const carouselStyles = {
     gridTemplateColumns: `repeat(${numberOfCards}, 1fr)`,
   }
@@ -82,12 +111,16 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
         return (
           <>
             <button className={styles.btnPrev} onClick={handlePrevClick} />
-            <ul
-              className={styles.carouselCards}
-              style={isMobile ? {} : carouselStyles}
-            >
-              {data.map(episode => <EpisodeCard key={episode.air_date} data={episode} />)}
-            </ul>
+            <div className={styles.carouselCards}>
+              <ul
+                className={styles.cardContainer}
+                style={isMobile ? mobileStyles : carouselStyles}
+                onMouseDown={(e) => isMobile && handleCarouselMouseDown(e)}
+                onDragStart={() => false}
+              >
+                {data.map(episode => <EpisodeCard key={episode.air_date} data={episode} />)}
+              </ul>
+            </div>
             <button className={styles.btnNext} onClick={handleNextClick} />
           </>
         );

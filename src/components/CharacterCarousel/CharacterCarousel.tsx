@@ -18,6 +18,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
   const { data, status } = charactersData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [swipe, setSwipe] = useState(0);
   const isMobile = useMediaQuery({
     query: '(max-width: 1100px)'
   })
@@ -53,8 +54,6 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
     return actualCards;
   };
 
-  const actualCards = selectActualCards(data);
-
   const handlePrevClick = () => {
     setCurrentPage((prev) => {
       if (currentPage > 1) return prev - 1;
@@ -70,14 +69,50 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
     });
   }
 
+  const handleCarouselMouseDown = (e: React.MouseEvent) => {
+    const elem = (e.currentTarget as Element);
+    const bounds = elem.getBoundingClientRect()
+    const startPosition = swipe;
+
+    const clickStartCoord = e.clientX - bounds.x;
+
+    const handleDocumentMouseMove = (event: MouseEvent) => {
+      const clickMoveCoord = event.clientX - bounds.x;
+      const swipe = startPosition + clickMoveCoord - clickStartCoord;
+
+      setSwipe(swipe);
+    }
+
+    document.addEventListener('mousemove', handleDocumentMouseMove);
+
+
+    document.onmouseup = () => {
+      document.removeEventListener('mousemove', handleDocumentMouseMove);
+      document.onmouseup = null;
+    }
+  };
+
+  const mobileStyles = {
+    transform: `translateX(${swipe}px)`,
+  }
+
   const renderCarousel = (status: string, data: Character[]) => {
     switch (status) {
       case 'success':
         return (
           <>
             <button className={styles.btnPrev} onClick={handlePrevClick} />
-            <ul className={styles.carouselCards} >
-              {data.map(character => <CharacterCard key={character.char_id} data={character} />)}
+            <ul
+              className={styles.carouselCards}
+            >
+              <div
+                className={styles.cardContainer}
+                style ={isMobile ? mobileStyles : {}}
+                onMouseDown={(e) => isMobile && handleCarouselMouseDown(e)}
+                onDragStart={() => false}
+              >
+                {data.map(character => <CharacterCard key={character.char_id} data={character} />)}
+              </div>
             </ul>
             <button className={styles.btnNext} onClick={handleNextClick} />
           </>
@@ -87,6 +122,8 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
       default: return <div>Loading data...</div>
     }
   }
+
+  const actualCards = selectActualCards(data);
 
   return (
     <div className={styles.charactersCarousel}>

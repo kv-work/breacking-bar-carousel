@@ -20,16 +20,17 @@
   padding: 0;
   width: 100%;
   height: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
   @media screen and (max-width: 1100px) {
-    display: flex;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    overflow: scroll;
+    overflow-x: scroll;
   }
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .btnPrev,

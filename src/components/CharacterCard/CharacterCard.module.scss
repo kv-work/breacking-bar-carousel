@@ -17,6 +17,7 @@
   background-repeat: no-repeat;
   border-radius: 8px;
   position: relative;
+  user-select: none; 
 }
 
 .status {
@@ -26,6 +27,7 @@
   left: 20%;
   font-size: 1.5rem;
   transform: rotate(-45deg);
+  user-select: none; 
 }
 
 .name {

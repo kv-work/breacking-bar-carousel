@@ -24,6 +24,14 @@
   padding: 0;
   width: 100%;
   height: auto;
+  
+
+  @media screen and (max-width: 1100px) {
+    overflow-x: scroll;
+  }
+}
+
+.cardContainer {
   display: grid;
   column-gap: 20px;
   align-items: center;
@@ -31,9 +39,10 @@
   @media screen and (max-width: 1100px) {
     display: flex;
     flex-wrap: nowrap;
-    white-space: nowrap;
-    overflow: scroll;
+    justify-content: space-between;
+    align-items: center;
   }
+  
 }
 
 .btnPrev,
