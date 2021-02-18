@@ -86,7 +86,7 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
               className={styles.carouselCards}
               style={isMobile ? {} : carouselStyles}
             >
-              {data.map(character => <EpisodeCard key={character.air_date} data={character} />)}
+              {data.map(episode => <EpisodeCard key={episode.air_date} data={episode} />)}
             </ul>
             <button className={styles.btnNext} onClick={handleNextClick} />
           </>

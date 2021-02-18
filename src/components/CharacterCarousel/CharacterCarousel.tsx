@@ -15,7 +15,7 @@ import styles from './CharacterCarousel.module.scss';
 
 const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4 }) => {
   const charactersData = useSelector((state: State) => state.characters);
-  const { data } = charactersData;
+  const { data, status } = charactersData;
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const isMobile = useMediaQuery({
@@ -70,6 +70,24 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
     });
   }
 
+  const renderCarousel = (status: string, data: Character[]) => {
+    switch (status) {
+      case 'success':
+        return (
+          <>
+            <button className={styles.btnPrev} onClick={handlePrevClick} />
+            <ul className={styles.carouselCards} >
+              {data.map(character => <CharacterCard key={character.char_id} data={character} />)}
+            </ul>
+            <button className={styles.btnNext} onClick={handleNextClick} />
+          </>
+        );
+      case 'error':
+        return  <div className="errorText">Characters not found!</div>;
+      default: return <div>Loading data...</div>
+    }
+  }
+
   return (
     <div className={styles.charactersCarousel}>
       <header className={styles.carouselHeader}>
@@ -77,17 +95,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({ numberOfCards = 4
         <div>Total {data.length} characters.</div>
       </header>
       <div className={styles.carousel}>
-        <button className={styles.btnPrev} onClick={handlePrevClick} />
-        <ul className={styles.carouselCards}>
-          {
-            actualCards.length !== 0 ?
-            actualCards.map(character => {
-              return <CharacterCard key={character.char_id} data={character} />
-            }) :
-            <div className="errorText">Characters not found!</div>
-          }
-        </ul>
-        <button className={styles.btnNext} onClick={handleNextClick} />
+        {renderCarousel(status, actualCards)}
       </div>
     </div>
   )
