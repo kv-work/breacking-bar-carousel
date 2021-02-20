@@ -17,11 +17,10 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
   const episodeData = useSelector((state: State) => state.episodes);
   const { data, status } = episodeData;
   const dispatch = useDispatch();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [swipe, setSwipe] = useState(0);
-  const isMobile = useMediaQuery({
-    query: '(max-width: 1100px)'
-  })
+  const isMobile = useMediaQuery({ query: '(max-width: 1100px)' });
 
   useEffect(() => {
     BreakingBadApiService.getEpisodes()

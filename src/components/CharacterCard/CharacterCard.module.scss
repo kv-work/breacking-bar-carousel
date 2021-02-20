@@ -23,11 +23,14 @@
 .status {
   color: red;
   position: absolute;
-  bottom: 50%;
-  left: 20%;
+  bottom: 48%;
+  left: -36%;
   font-size: 1.5rem;
-  transform: rotate(-45deg);
-  user-select: none; 
+  transform: rotate(-54.85deg);
+  user-select: none;
+  width: 305px;
+  height: fit-content;
+  text-align: center;
 }
 
 .name {
