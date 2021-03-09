@@ -83,7 +83,11 @@ const EpisodeCarousel: React.FC<EpisodeCarouselProps> = ({ numberOfCards = 3, re
       const clickMoveCoord = event.clientX - bounds.x;
       const swipe = startPosition + clickMoveCoord - clickStartCoord;
 
-      setSwipe(swipe);
+      setSwipe(() => {
+        if (swipe > 0) return 0;
+
+        return swipe;
+      });
     }
 
     document.addEventListener('mousemove', handleDocumentMouseMove);
